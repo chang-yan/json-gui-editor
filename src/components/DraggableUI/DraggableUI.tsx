@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useFieldArray } from "react-hook-form";
 import { Draggable } from "react-beautiful-dnd";
 import {
   BarsArrowDownIcon,
@@ -14,6 +14,7 @@ interface IDraggableUI {
   defaultValue: ComponentValue;
   name: string;
   index: number;
+  handleDelete: () => void;
 }
 
 type ComponentValue = {
@@ -23,7 +24,7 @@ type ComponentValue = {
 };
 
 const DraggableUI = (props: IDraggableUI) => {
-  const { defaultValue, name, index } = props;
+  const { defaultValue, name, index, handleDelete } = props;
   const { register } = useFormContext();
 
   const [detailOpen, setDetailOpen] = useState<boolean>(false);
@@ -41,6 +42,7 @@ const DraggableUI = (props: IDraggableUI) => {
           {...provided.draggableProps}
         >
           <div className="flex justify-between border-gray-300 border-b-2 py-2">
+            {/* type */}
             <select
               className="font-mono font-bold place-self-center text-sm px-1 py-1 focus:ring-slate-500 focus:ring-1"
               {...register(`${name}.${index}.type`)}
@@ -52,7 +54,7 @@ const DraggableUI = (props: IDraggableUI) => {
               <option>{UIType.SmartInput}</option>
               <option>{UIType.AutoTextField}</option>
             </select>
-
+            {/* key */}
             <div className="flex flex-col w-20 md:w-36">
               <label className="font-semibold text-sm py-1">key</label>
               <input
@@ -61,6 +63,7 @@ const DraggableUI = (props: IDraggableUI) => {
                 defaultValue={defaultValue.key}
               />
             </div>
+            {/* label */}
             <div className="flex flex-col w-20 md:w-36">
               <label className="font-semibold text-sm py-1">label</label>
               <input
@@ -69,7 +72,7 @@ const DraggableUI = (props: IDraggableUI) => {
                 defaultValue={defaultValue.label}
               />
             </div>
-
+            {/* toggle detail area */}
             <button
               type="button"
               className="flex w-8 h-8 hover:ring-rose-900 hover:ring-1 rounded-full place-self-center items-center justify-center"
@@ -77,6 +80,7 @@ const DraggableUI = (props: IDraggableUI) => {
             >
               <BarsArrowDownIcon className="w-5" />
             </button>
+            {/* drag */}
             <button
               type="button"
               className="flex w-8 h-8 hover:ring-slate-600 hover:ring-1 rounded-full place-self-center items-center justify-center"
@@ -84,9 +88,11 @@ const DraggableUI = (props: IDraggableUI) => {
             >
               <HandRaisedIcon className="w-5" />
             </button>
+            {/* delete */}
             <button
               type="button"
               className="flex w-8 h-8 hover:ring-red-500 hover:ring-1 rounded-full place-self-center items-center justify-center"
+              onClick={handleDelete}
             >
               <TrashIcon className="w-5" />
             </button>

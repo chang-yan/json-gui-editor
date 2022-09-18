@@ -31,34 +31,49 @@ const initList: UIValue[] = [
 
 const Form = () => {
   const method = useForm<{
-    component: UIValue[];
+    components: UIValue[];
   }>({
     defaultValues: {
-      component: initList,
+      components: initList,
     },
     mode: "onBlur",
   });
 
   const { handleSubmit, control, reset } = method;
 
-  const { fields, append, swap } = useFieldArray({
+  const { fields, append, move, remove } = useFieldArray({
     control,
-    name: "component",
+    name: "components",
   });
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
-    if (!destination) return;
-    swap(source.index, destination.index);
+
+    if (!destination) {
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    move(source.index, destination.index);
+  };
+
+  const onDelete = (index: number) => () => {
+    remove(index);
   };
 
   const onSubmit = (data: any) => console.log("data", data);
 
   useEffect(() => {
     reset({
-      component: initList,
+      components: initList,
     });
-  }, [reset]);
+  }, []);
 
   return (
     <FormProvider {...method}>
@@ -66,16 +81,17 @@ const Form = () => {
         <div className="grid grid-cols-3 gap-5 py-4 px-4">
           <div className="px-4 py-4 bg-gray-50 rounded-lg col-span-2 overflow-auto">
             <DragDropContext onDragEnd={onDragEnd}>
-              <Droppable droppableId="component">
+              <Droppable droppableId="components">
                 {(provided, droppableSnapshot) => (
-                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                  <div ref={provided.innerRef} {...provided.droppableProps}>
                     {fields.map((item, index) => {
                       return (
                         <DraggableUI
                           key={item.id} // better has a key for list component
                           defaultValue={item}
                           index={index}
-                          name="component"
+                          name="components"
+                          handleDelete={onDelete(index)}
                         />
                       );
                     })}

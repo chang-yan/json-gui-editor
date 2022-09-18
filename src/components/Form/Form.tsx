@@ -29,6 +29,8 @@ const initList: UIValue[] = [
   },
 ];
 
+const fieldName = "components";
+
 const Form = () => {
   const method = useForm<{
     components: UIValue[];
@@ -43,7 +45,7 @@ const Form = () => {
 
   const { fields, append, move, remove } = useFieldArray({
     control,
-    name: "components",
+    name: fieldName,
   });
 
   const onDragEnd = (result: DropResult) => {
@@ -71,7 +73,7 @@ const Form = () => {
 
   useEffect(() => {
     reset({
-      components: initList,
+      [fieldName]: initList,
     });
   }, []);
 
@@ -90,7 +92,7 @@ const Form = () => {
                           key={item.id} // better has a key for list component
                           defaultValue={item}
                           index={index}
-                          name="components"
+                          name={fieldName}
                           handleDelete={onDelete(index)}
                         />
                       );

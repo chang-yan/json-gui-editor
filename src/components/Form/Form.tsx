@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useForm, useFieldArray, FormProvider } from "react-hook-form";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
+import JSONPretty from "react-json-pretty";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
 import DraggableUI from "../DraggableUI";
@@ -80,7 +81,7 @@ const Form = () => {
   return (
     <FormProvider {...method}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-3 gap-5 py-4 px-4">
+        <div className="grid grid-cols-3 gap-5 py-4 px-4 h-[48rem]">
           <div className="px-4 py-4 bg-gray-50 rounded-lg col-span-2 overflow-auto">
             {/* drag and drop */}
             <DragDropContext onDragEnd={onDragEnd}>
@@ -119,7 +120,19 @@ const Form = () => {
               add
             </button>
           </div>
-          <div className="px-4 py-4 rounded-lg">json region</div>
+          <div className="px-4 py-4 rounded-lg overflow-auto bg-zinc-100">
+            <JSONPretty
+              id="an-uniq-id"
+              data={fields}
+              style={{ fontSize: "12px" }}
+              theme={{
+                key: 'color:#5F9EA0;font-weight:bold;',
+                string: 'color:#A52A2A;',
+                boolean: 'color:#DA70D6',
+              }}
+              // space="2"
+            />
+          </div>
         </div>
       </form>
     </FormProvider>

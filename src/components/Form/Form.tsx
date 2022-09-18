@@ -82,6 +82,7 @@ const Form = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-3 gap-5 py-4 px-4">
           <div className="px-4 py-4 bg-gray-50 rounded-lg col-span-2 overflow-auto">
+            {/* drag and drop */}
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="components">
                 {(provided, droppableSnapshot) => (
@@ -92,7 +93,7 @@ const Form = () => {
                           key={item.id} // better has a key for list component
                           defaultValue={item}
                           index={index}
-                          name={fieldName}
+                          name={fieldName} //  unique for one single form
                           handleDelete={onDelete(index)}
                         />
                       );
@@ -102,6 +103,7 @@ const Form = () => {
                 )}
               </Droppable>
             </DragDropContext>
+            {/* add */}
             <button
               type="button"
               className="m-4 p-2 flex ring-stone-300 ring-2 hover:bg-stone-200 rounded-lg"

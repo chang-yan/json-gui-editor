@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useFormContext, useFieldArray } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { Draggable } from "react-beautiful-dnd";
 import {
   BarsArrowDownIcon,

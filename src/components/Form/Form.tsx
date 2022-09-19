@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useForm, useFieldArray, FormProvider } from "react-hook-form";
+import { useForm, useFieldArray, FormProvider, useWatch } from "react-hook-form";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import JSONPretty from "react-json-pretty";
 import { PlusIcon } from "@heroicons/react/24/outline";
@@ -30,7 +30,7 @@ const initList: UIValue[] = [
   },
 ];
 
-const fieldName = "components";
+const FIELD_NAME = "components";
 
 const Form = () => {
   const method = useForm<{
@@ -40,13 +40,14 @@ const Form = () => {
       components: initList,
     },
     mode: "onBlur",
+    shouldUnregister: true,
   });
 
   const { handleSubmit, control, reset } = method;
 
   const { fields, append, move, remove } = useFieldArray({
     control,
-    name: fieldName,
+    name: FIELD_NAME,
   });
 
   const onDragEnd = (result: DropResult) => {
@@ -74,9 +75,19 @@ const Form = () => {
 
   useEffect(() => {
     reset({
-      [fieldName]: initList,
+      [FIELD_NAME]: initList,
     });
   }, []);
+
+  const watchFields = useWatch({
+    control,
+    name: FIELD_NAME,
+    defaultValue: [{
+      key: "",
+      label: "",
+      type: UIType.TextField,
+    }]
+  })
 
   return (
     <FormProvider {...method}>
@@ -94,7 +105,7 @@ const Form = () => {
                           key={item.id} // better has a key for list component
                           defaultValue={item}
                           index={index}
-                          name={fieldName} //  unique for one single form
+                          name={FIELD_NAME} //  unique for one single form
                           handleDelete={onDelete(index)}
                         />
                       );
@@ -123,7 +134,7 @@ const Form = () => {
           <div className="px-4 py-4 rounded-lg overflow-auto bg-zinc-100">
             <JSONPretty
               id="an-uniq-id"
-              data={fields}
+              data={watchFields}
               style={{ fontSize: "12px" }}
               theme={{
                 key: 'color:#5F9EA0;font-weight:bold;',

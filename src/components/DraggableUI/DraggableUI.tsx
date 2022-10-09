@@ -11,7 +11,7 @@ import { UIType } from "../../utils/type";
 import DetailBlock from "./DetailBlock";
 
 interface IDraggableUI {
-  defaultValue: ComponentValue;
+  defaultValues: ComponentValue;
   name: string;
   index: number;
   handleDelete: () => void;
@@ -24,18 +24,18 @@ type ComponentValue = {
 };
 
 const DraggableUI = (props: IDraggableUI) => {
-  const { defaultValue, name, index, handleDelete } = props;
+  const { defaultValues, name, index, handleDelete } = props;
   const { register } = useFormContext();
 
   const [detailOpen, setDetailOpen] = useState<boolean>(false);
 
   return (
     <Draggable
-      key={`${name}.${index}`}
-      draggableId={`${name}.${index}`}
+      key={name}
+      draggableId={name}
       index={index}
     >
-      {(provided, snapshot) => (
+      {(provided, _) => (
         <div
           className="w-[36rem] m-1"
           ref={provided.innerRef}
@@ -45,8 +45,8 @@ const DraggableUI = (props: IDraggableUI) => {
             {/* type */}
             <select
               className="font-mono font-bold place-self-center text-sm px-1 py-1 focus:ring-slate-500 focus:ring-1"
-              {...register(`${name}.${index}.type`)}
-              defaultValue={defaultValue.type}
+              {...register(`${name}.type`)}
+              defaultValue={defaultValues.type}
             >
               <option>{UIType.TextField}</option>
               <option>{UIType.RadioGroup}</option>
@@ -59,8 +59,8 @@ const DraggableUI = (props: IDraggableUI) => {
               <label className="font-semibold text-sm py-1">key</label>
               <input
                 className="ring-slate-200 ring-1 focus:ring-3 px-2 shadow text-gray-900 text-semibold text-sm"
-                {...register(`${name}.${index}.key`)}
-                defaultValue={defaultValue.key}
+                {...register(`${name}.key`)}
+                defaultValue={defaultValues.key}
               />
             </div>
             {/* label */}
@@ -68,8 +68,8 @@ const DraggableUI = (props: IDraggableUI) => {
               <label className="font-semibold text-sm py-1">label</label>
               <input
                 className="ring-slate-200 ring-1 focus:ring-3 px-2 shadow text-gray-900 text-semibold text-sm"
-                {...register(`${name}.${index}.label`)}
-                defaultValue={defaultValue.label}
+                {...register(`${name}.label`)}
+                defaultValue={defaultValues.label}
               />
             </div>
             {/* toggle detail area */}
@@ -97,7 +97,9 @@ const DraggableUI = (props: IDraggableUI) => {
               <TrashIcon className="w-5" />
             </button>
           </div>
-          {detailOpen && <DetailBlock />}
+          {detailOpen && <DetailBlock 
+            name={name}
+          />}
         </div>
       )}
     </Draggable>

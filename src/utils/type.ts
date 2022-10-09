@@ -7,11 +7,12 @@ export enum UIType {
 };
 
 export enum UIProps {
+  required = "required",
+  defaultValue = "defaultValue",
   number = "number",
   unit = "unit",
   others = "others",
   options = "options",
-  defaultValue = "defaultValue",
 };
 
 export type UIValue = {

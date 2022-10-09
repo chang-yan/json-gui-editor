@@ -97,15 +97,15 @@ const Form = () => {
             {/* drag and drop */}
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="components">
-                {(provided, droppableSnapshot) => (
+                {(provided, _) => (
                   <div ref={provided.innerRef} {...provided.droppableProps}>
                     {fields.map((item, index) => {
                       return (
                         <DraggableUI
                           key={item.id} // better has a key for list component
-                          defaultValue={item}
+                          defaultValues={item}
                           index={index}
-                          name={FIELD_NAME} //  unique for one single form
+                          name={`${FIELD_NAME}.${index}`} //  unique for one single form
                           handleDelete={onDelete(index)}
                         />
                       );
@@ -141,7 +141,6 @@ const Form = () => {
                 string: 'color:#A52A2A;',
                 boolean: 'color:#DA70D6',
               }}
-              // space="2"
             />
           </div>
         </div>

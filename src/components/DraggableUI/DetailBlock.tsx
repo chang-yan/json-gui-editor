@@ -1,60 +1,84 @@
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 import CheckBox from "../ControlleredComponent/CheckBox";
-import { UIProps } from "../../utils/type";
+import { UIPropsValues } from "../../utils/type";
 
 type DetailBlockProps = {
   name: string,
 }
 const DetailBlock = (props: DetailBlockProps) => {
   const { name } = props;
-  const { control } = useFormContext();
+  const { control, resetField } = useFormContext();
   return (
     <div className="w-full h-36 ring-gray-300 ring-8 p-3 overflow-auto">
       {/* required */}
       <Controller
         control={control}
-        name={`${name}.${UIProps.required}`}
-        render={({ field: { onChange, value }}) => (
+        name={`${name}.${UIPropsValues.required}`}
+        render={({ field: { onChange, value } }) => (
           <CheckBox
-            onChange={(v: boolean) => {onChange(v)}}
+            onChange={(val: boolean) => {
+              if (val) {
+                onChange(val)
+              } else {
+                resetField(`${name}.${UIPropsValues.required}`)
+              }
+            }}
             value={value}
-            name={UIProps.required}
+            name={UIPropsValues.required}
           />
         )}
       />
       {/* number */}
       <Controller
         control={control}
-        name={`${name}.props.${UIProps.number}`}
-        render={({ field: { onChange, value }}) => (
+        name={`${name}.props.${UIPropsValues.number}`}
+        render={({ field: { onChange, value } }) => (
           <CheckBox
-            onChange={(v: boolean) => {onChange(v)}}
+            onChange={(val: boolean) => {
+              if (val) {
+                onChange(val)
+              } else {
+                resetField(`${name}.${UIPropsValues.number}`)
+              }
+            }}
             value={value}
-            name={UIProps.number}
+            name={UIPropsValues.number}
           />
         )}
       />
       {/* unit */}
       <Controller
         control={control}
-        name={`${name}.props.${UIProps.unit}`}
-        render={({ field: { onChange, value }}) => (
+        name={`${name}.props.${UIPropsValues.unit}`}
+        render={({ field: { onChange, value } }) => (
           <CheckBox
-            onChange={(v: boolean) => {onChange(v)}}
+            onChange={(val: boolean) => {
+              if (val) {
+                onChange(val)
+              } else {
+                resetField(`${name}.${UIPropsValues.unit}`)
+              }
+            }}
             value={value}
-            name={UIProps.unit}
+            name={UIPropsValues.unit}
           />
         )}
       />
       {/* others */}
       <Controller
         control={control}
-        name={`${name}.props.${UIProps.others}`}
-        render={({ field: { onChange, value }}) => (
+        name={`${name}.props.${UIPropsValues.others}`}
+        render={({ field: { onChange, value } }) => (
           <CheckBox
-            onChange={(v: boolean) => {onChange(v)}}
+            onChange={(val: boolean) => {
+              if (val) {
+                onChange(val)
+              } else {
+                resetField(`${name}.${UIPropsValues.others}`)
+              }
+            }}
             value={value}
-            name={UIProps.others}
+            name={UIPropsValues.others}
           />
         )}
       />

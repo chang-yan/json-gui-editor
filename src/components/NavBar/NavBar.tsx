@@ -21,6 +21,7 @@ const NavBar = () => {
           className={`flex mr-10 md:hidden items-center justify-center w-9 h-9 hover:bg-gray-100 rounded ring-slate-300 ${
             toggleOn && "ring-4"
           }`}
+          type="button"
           onClick={onToggleClick}
         >
           <Bars3Icon className="w-7" />

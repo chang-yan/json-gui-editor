@@ -1,6 +1,7 @@
 import { Controller, useFormContext, useWatch } from "react-hook-form";
-import CheckBox from "../ControlleredComponent/CheckBox";
 import { UIPropsValues } from "../../utils/type";
+import CheckBox from "../ControlleredComponent/CheckBox";
+import CheckableTextField from "../ControlleredComponent/CheckableTextField";
 
 type DetailBlockProps = {
   name: string,
@@ -79,6 +80,19 @@ const DetailBlock = (props: DetailBlockProps) => {
             }}
             value={value}
             name={UIPropsValues.others}
+          />
+        )}
+      />
+      {/* defaultValue */}
+      <Controller
+        control={control}
+        name={`${name}.${UIPropsValues.defaultValue}`}
+        render={({ field: { onChange, value } }) => (
+          <CheckableTextField
+            onChange={onChange}
+            clearField={() => resetField(`${name}.${UIPropsValues.defaultValue}`)}
+            defaultValue={value}
+            name={UIPropsValues.defaultValue}
           />
         )}
       />

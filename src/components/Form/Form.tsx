@@ -34,10 +34,10 @@ const FIELD_NAME = "components";
 
 const Form = () => {
   const method = useForm<{
-    components: UIValue[];
+    [FIELD_NAME]: UIValue[];
   }>({
     defaultValues: {
-      components: initList,
+      [FIELD_NAME]: initList,
     },
     mode: "onBlur",
     shouldUnregister: true,
@@ -71,7 +71,7 @@ const Form = () => {
     remove(index);
   };
 
-  const onSubmit = (data: any) => console.log("data", data);
+  const onSubmit = (data: any) => console.log("data123", data);
 
   useEffect(() => {
     reset({

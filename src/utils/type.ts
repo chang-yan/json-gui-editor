@@ -6,7 +6,7 @@ export enum UIType {
   AutoTextField = "AutoTextField",
 };
 
-export enum UIProps {
+export enum UIPropsValues {
   required = "required",
   defaultValue = "defaultValue",
   number = "number",
@@ -19,6 +19,7 @@ export type UIValue = {
   key: string;
   label: string;
   type: UIType;
+  props?: UIPropsValues;
 };
 
 export enum ContainerType {

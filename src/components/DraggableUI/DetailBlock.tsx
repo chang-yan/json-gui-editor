@@ -17,14 +17,9 @@ const DetailBlock = (props: DetailBlockProps) => {
         name={`${name}.${UIPropsValues.required}`}
         render={({ field: { onChange, value } }) => (
           <CheckBox
-            onChange={(val: boolean) => {
-              if (val) {
-                onChange(val)
-              } else {
-                resetField(`${name}.${UIPropsValues.required}`)
-              }
-            }}
-            value={value}
+            onChange={onChange}
+            clearField={() => resetField(`${name}.${UIPropsValues.required}`)}
+            defaultValue={value}
             name={UIPropsValues.required}
           />
         )}
@@ -35,14 +30,9 @@ const DetailBlock = (props: DetailBlockProps) => {
         name={`${name}.props.${UIPropsValues.number}`}
         render={({ field: { onChange, value } }) => (
           <CheckBox
-            onChange={(val: boolean) => {
-              if (val) {
-                onChange(val)
-              } else {
-                resetField(`${name}.${UIPropsValues.number}`)
-              }
-            }}
-            value={value}
+            onChange={onChange}
+            clearField={() => resetField(`${name}.props.${UIPropsValues.number}`)}
+            defaultValue={value}
             name={UIPropsValues.number}
           />
         )}
@@ -53,14 +43,9 @@ const DetailBlock = (props: DetailBlockProps) => {
         name={`${name}.props.${UIPropsValues.unit}`}
         render={({ field: { onChange, value } }) => (
           <CheckBox
-            onChange={(val: boolean) => {
-              if (val) {
-                onChange(val)
-              } else {
-                resetField(`${name}.${UIPropsValues.unit}`)
-              }
-            }}
-            value={value}
+            onChange={onChange}
+            clearField={() => resetField(`${name}.props.${UIPropsValues.unit}`)}
+            defaultValue={value}
             name={UIPropsValues.unit}
           />
         )}
@@ -71,14 +56,9 @@ const DetailBlock = (props: DetailBlockProps) => {
         name={`${name}.props.${UIPropsValues.others}`}
         render={({ field: { onChange, value } }) => (
           <CheckBox
-            onChange={(val: boolean) => {
-              if (val) {
-                onChange(val)
-              } else {
-                resetField(`${name}.${UIPropsValues.others}`)
-              }
-            }}
-            value={value}
+            onChange={onChange}
+            clearField={() => resetField(`${name}.props.${UIPropsValues.others}`)}
+            defaultValue={value}
             name={UIPropsValues.others}
           />
         )}
